@@ -35,7 +35,8 @@ class UserViewSet(viewsets.ModelViewSet):
 class ResumeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Resume
-        fields = ('url', 'name', 'pub_date')
+        fields = ('url', 'name', 'summary', 'skills',
+                  'experience', 'education', 'addActivity', 'pub_date')
 
 class ResumeViewSet(viewsets.ModelViewSet):
     queryset = Resume.objects.all()
