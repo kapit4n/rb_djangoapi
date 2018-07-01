@@ -20,6 +20,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers, viewsets, routers
 from django.db import models
 from django.template.defaultfilters import slugify
+from resumes.models import Resume
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -31,9 +32,19 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class ResumeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Resume
+        fields = ('url', 'name', 'pub_date')
+
+class ResumeViewSet(viewsets.ModelViewSet):
+    queryset = Resume.objects.all()
+    serializer_class = ResumeSerializer
+
 # Routers provide a way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'resumes', ResumeViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
